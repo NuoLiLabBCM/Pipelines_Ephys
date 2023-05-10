@@ -81,8 +81,7 @@ def run(ksdirs_csv, trim_meta_path, model1_coef, model1_intercept, model2_coef,
                                          feat_cols, -1)
     #predict with classifier 1
     predictions = model_cf1.predict(test_x)
-    
-    mask = predictions.copy()
+    mask = np.ones(len(predictions))
     for key, val in greater_equal.items():
         temp_mask = np.array(metrics[key] >= val, dtype=int)
         mask *= temp_mask

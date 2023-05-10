@@ -7,12 +7,11 @@ from params import *
 
 ######## USER INPUT ############################
 
-ksdirs_csv = r'A:\Heet\Code\heet\meta\classification_sessions.xlsx'
+ksdirs_csv = r'A:\Heet\Code\heet\meta\classification_sessions_heet.xlsx'
 trim_meta_path = r'A:\Heet\Code\heet\meta\numpy_truncation_meta.xlsx'
 region = 'alm'
 
 ####### USER INPUT ENDS HERE ###################
-
 
 
 
