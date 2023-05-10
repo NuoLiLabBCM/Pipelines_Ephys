@@ -36,10 +36,7 @@ def load_metrics(ksdir):
             ix = np.where(good_clusters == cid)[0]
             val = vals[ix][0]
             ix = result[result['cluster_id']==cid].index[0]
-            if val == 'good':
-                result.loc[ix, 'manual_labels'] = 1
-            elif val == 'mua':
-                result.loc[ix, 'manual_labels'] = 0
+            result.loc[ix, 'manual_labels'] = 1 if val == 'good' else 0
     result['energy'] = get_energy(metrics['cluster_id'], ksdir)
     return result
 
