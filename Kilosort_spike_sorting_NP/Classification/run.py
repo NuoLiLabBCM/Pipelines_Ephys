@@ -16,9 +16,9 @@ region = 'alm'
 
 
 feat_cols = params['feat_cols']
-energy_threshold = params['energy_threshold']
-greater_equal = params['greater_equal']
-less_equal = params['less_equal']
+energy_threshold = params[region]['energy_threshold']
+greater_equal = params[region]['greater_equal']
+less_equal = params[region]['less_equal']
 model1_coef = params[region]['model1_coef']
 model1_intercept = params[region]['model1_intercept']
 model2_coef = params[region]['model2_coef']
