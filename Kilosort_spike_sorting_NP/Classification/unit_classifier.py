@@ -67,7 +67,23 @@ def batch_classifications(metrics, train_filters, test_filters, feat_cols, label
 def run(ksdirs_csv, trim_meta_path, model1_coef, model1_intercept, model2_coef, 
         model2_intercept, feat_cols, greater_equal, less_equal, 
         energy_threshold):
-    """ """
+    """Train 2 classifiers for predicting good and mua clusters 
+    
+    Args: 
+        ksdirs_csv (str):       path to excel containing classification meta
+        trim_meta_path (str):   path to numpy_truncation_meta excel
+        model1_coef (seq):      coefficients for classifier 1
+        model1_intercept:       intercept for classifier 1
+        model2_coef (seq):      coefficients for classifier 2
+        model2_intercept:       intercept for classifier 2
+        feat_cols (list-like):  sequence containing indices of prediction features
+        greater_equal (dict):   key, values for QC thresholds (pass >=)
+        less_equal (dict):      key, values for QC thresholds (pass <=)
+        energy_threshold (int): energy threshold to reject clusters as noise
+        
+    Returns final metrics. Saves results in a *_trimmed folder next to kilosort
+    output directory
+    """
     #load metric tables
     metrics, ksdirs = get_metrics(ksdirs_csv, dropna=True)
     metrics.reset_index(inplace=True, drop=True) #re-order index
@@ -109,10 +125,9 @@ def run(ksdirs_csv, trim_meta_path, model1_coef, model1_intercept, model2_coef,
                                     feat_cols, -1)
     #predict with classifier 2
     predictions = model_cf2.predict(test_x)
-    
+    metrics_filt['predictions'] = predictions
     #update earlier predictions based on classifier 2
-    metrics['predictions'][metrics_filt.index] = predictions
-    
+    metrics.loc[metrics_filt.index, 'predictions'] = predictions
     # trim numpy files
     for uid, ksdir in zip(metrics.uid.unique(), ksdirs):
         print("\n\nTrimming File: {}\n" .format(uid+1))
