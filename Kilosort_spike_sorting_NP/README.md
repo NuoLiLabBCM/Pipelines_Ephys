@@ -1,0 +1,2 @@
+# General pipeline
+![](workflow.png)
