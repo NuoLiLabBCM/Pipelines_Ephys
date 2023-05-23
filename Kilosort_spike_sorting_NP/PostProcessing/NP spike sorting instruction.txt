@@ -1,0 +1,89 @@
+Heet, Runbo, Nuo 3/27/23
+
+
+========= preprocess NP data using pipeline wroted by Jennifer Colonell==========
+This runs catGT, kilosort2.5, TPrime
+see setup and instruction on ...
+
+the output is storred in ./imecXXX_ks2/
+
+========= run Li Lab preprocessing pipline ===========
+Identifies good units by a set of QC thresholds
+Identifies MUA units by a brain-region-specific classifer on a set of QC metrics
+
+the output is storred in ./imecXXX_ks2_trimmed/
+
+========= installing Phy2.0 ==========
+Go to Phy github and follow instruction there
+<https://github.com/cortex-lab/phy>
+
+======== sorting in Phy ============
+1) Sort unlabeled units in the data folder, filter   group!='good'
+
+2) go through and mark 'good' and 'mua' units, based on ISI, feature separation, and waveform
+	(will return next to work on 'mua')
+	(this is step 1 in the instruction)
+	(only mark 'good' or 'mua', leave the rest of the units, will set them to noise at the end)
+
+	ctlr+alt+g --good
+	ctlr+alt+m --mua
+	ctlr+alt+n --noise
+
+3) filter    group=='mua', now work on individual mua by cutting clusters
+	Cut in feature view, can cltr + stroll to zoom in or out
+	cltr+mouse click to draw polygon points, after drawing polygon, press 'k' to split cluster
+	refresh the filter list by pressing enter in the filter field, this will bring up the cut clusters
+	label the one you want to save as 'good', or 'noise' if not good enough. label the leftovers as 'noise'
+
+ 
+
+4) repeat the steps in 3) to finish all mua's. The goal is to have all mua labeled as either 'good' or 'noise'
+
+5) filter    group!='good', now set all the clusters in the list to 'noise'
+	(hold 'shift' and select the top and bottom cluster to select all)
+
+6) Now all the units have either label 'good' or 'noise'
+
+7) Save the files.
+
+
+======== PostProcessSpikeData.m ============
+1) Run PostProcessSpikeData.m 
+
+2) this will extract all units into folder /imecXXX_ks2_SingleUnits/
+
+3) There are two types of untis
+	SingleUnit_imec0_QCXXX   	--> units from QC thresholding, no need to check dupicates, 
+					    go directly to 'manual_FinalPlot_CheckBadUnits_kilosort.m'
+
+	SingleUnit_imec0_GoodXXX	--> units from classification directly as 'good' units, no need to check dupicates, 
+					    go directly to 'manual_FinalPlot_CheckBadUnits_kilosort.m'
+
+	SingleUnit_imec0_CurationXXX   	--> units from manual spike curation in Phy, run steps below
+
+
+======== manual_CheckForDuplicateClusters_kilosort.m ============
+1) Only run the top portion of this script, up to "%% manually put in the duplicate..."
+
+2) This will generate a bunch of plots in a \CheckDuplicate\ folder within the same SingleUnit folder
+
+3) look through all plots, each plot shows 1 unit pair, named "SingleUnitFolderName_Unit#"
+
+4) identify unit pairs that are duplicates, put the pairs into the combine_pairs variable in the script 
+	(the bottom portion of the script)
+	** if you want to combine more than 2 units, make sure to put the unit in common in the first entry.
+		e.g. if combining unit 15 and 32, and also combining unit 32 and 64, then enter
+		'32' '15';...
+		'32' '64';...
+
+5) run the bottom portion of the script to combine the specified unit pair.
+
+
+============ manual_FinalPlot_CheckBadUnits_kilosort.m ============
+1) This will generate a bunch of plots in a \CheckBadUnits\ folder within the same SingleUnit folder
+
+2) look through the PNG this files generates, manually move units that don't seem stable to BadUnit folder
+
+
+
+
