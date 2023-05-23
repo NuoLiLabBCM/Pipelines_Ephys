@@ -6,7 +6,7 @@ For event view (PSTH)
 1. Download [event_view_v2.py](https://drive.google.com/file/d/1jYQ9hkdbXR8WYVOlP2Ft0zm_a6MTDaAU)
 2. Comment out `# matplotlib.use('TkAgg')` in event_view_v2.py
 3. Put my attached event_view_v2.py in the folder `~\.phy\plugins ("~" represents your home directory, e.g., c:\Users\admin\)`
-4. Active the plugin by adding the following line to the config file `~\.phy\phy_config.py:` `c.TemplateGUI.plugins = ['EventPlugin']`
+4. Activate the plugin by adding the following line to the config file `~\.phy\phy_config.py:` `c.TemplateGUI.plugins = ['EventPlugin']`
 
 
 
