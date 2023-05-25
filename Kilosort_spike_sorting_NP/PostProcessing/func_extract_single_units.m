@@ -45,16 +45,16 @@ disp(['extracted ',num2str(length(QC_cluster)),' units out of ',num2str(size(clu
 % extract good cluster based on classifer 
 classifier_good_cluster = classifier_label.cluster_id(classifier_label.predictions==1);
 i_tmp = ismember(classifier_good_cluster, QC_cluster);
-classifier_good_cluster(i_tmp) = [];
+classifier_good_cluster(i_tmp,:) = [];
 disp(['extracted ',num2str(length(classifier_good_cluster)),' units out of ',num2str(size(cluster_info.cluster_id,1)),' units based on classifer']);
 
 % extract good cluster based on manual curation
-curation_cluster = find(ismember(string(curation_label.group),string('good ')));
+curation_cluster = find(contains(string(curation_label.group),"good"));
 curation_cluster = curation_label.cluster_id(curation_cluster);
 i_tmp = ismember(curation_cluster, QC_cluster);
-curation_cluster(i_tmp) = [];
+curation_cluster(i_tmp, :) = [];
 i_tmp = ismember(curation_cluster, classifier_good_cluster);
-curation_cluster(i_tmp) = [];
+curation_cluster(i_tmp, :) = [];
 disp(['extracted ',num2str(length(curation_cluster)),' units out of ',num2str(size(cluster_info.cluster_id,1)),' units based on manual curation']);
 
 
