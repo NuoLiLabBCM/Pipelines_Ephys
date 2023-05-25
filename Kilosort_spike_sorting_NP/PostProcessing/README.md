@@ -36,7 +36,7 @@ For event view (PSTH)
 ## PostProcessSpikeData.m
 1) Run `PostProcessSpikeData.m`
 2) This will extract all units into folder */imecXXX_ks2_SingleUnits/*
-3) There are 3types of units
+3) There are 3 types of units
 
    i. **SingleUnit_imec0_QCXXX** --> units from QC thresholding, no need to check dupicates, go directly to `manual_FinalPlot_CheckBadUnits_kilosort.m`
 	
