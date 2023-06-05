@@ -39,8 +39,8 @@ unit.corrected_pk_channel_on_probe = unit1.corrected_pk_channel_on_probe;% align
 unit.selected_channels = unit1.selected_channels;% align to first unit
 unit.selected_channels_on_probe = unit1.selected_channels_on_probe;% align to first unit
 
-waveforms_tmp = nan(size(unit1.waveforms));
-mean_waveform_tmp = nan(size(unit1.mean_waveform));
+waveforms_tmp = nan(size(unit2.waveforms));
+mean_waveform_tmp = nan(size(unit2.mean_waveform));
     
 ch_idx_2_1 = find(ismember(unit2.selected_channels,unit1.selected_channels))*82;
 ch_idx_1_2 = find(ismember(unit1.selected_channels,unit2.selected_channels))*82;
