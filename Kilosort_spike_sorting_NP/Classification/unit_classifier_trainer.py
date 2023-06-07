@@ -181,5 +181,6 @@ def confusion_plotter(cm, labels=None, **kwargs):
         kwargs:             passed to ax.set()
     """
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
-    disp.plot()
+    disp.plot(cmap='Greys')
     disp.ax_.set(**kwargs)
+    disp.im_.colorbar.remove()

@@ -15,7 +15,7 @@ def load_metrics(ksdir):
     NOTE: If metrics.csv already has a column named 'drift' then driftQC.csv will
     not be used. 
     """
-    metrics = pd.read_csv(ksdir + '/metrics.csv', sep=',',)
+    metrics = pd.read_csv(ksdir + '/metrics.csv', sep=',')
     if not 'drift' in metrics: #load drift from drfitQC.csv if not already present in metrics.csv
         metrics['drift'] = pd.read_csv(ksdir + '/driftQC.csv', header=None, 
                                        names=['drift'])
