@@ -130,23 +130,26 @@ def run(ksdirs_csv, trim_meta_path, model1_coef, model1_intercept, model2_coef,
     metrics.loc[metrics_filt.index, 'predictions'] = predictions
     # trim numpy files
     for uid, ksdir in zip(metrics.uid.unique(), ksdirs):
-        print("\n\nTrimming File: {}\n" .format(uid+1))
+        print("\n\nTrimming File: uid {}\n" .format(uid))
         save_dir = ksdir + '_trimmed'
-        os.makedirs(save_dir, exist_ok=True)
-        x = extract(metrics, **{'uid': [uid]})
-        x.to_csv(ksdir + '\\cluster_predictions.tsv', columns=['cluster_id','predictions'], index=False, sep='\t')
-        x = extract(x, **{'predictions': [1,0]})
-        tokens = trim_NPYs(x['cluster_id'], ksdir, trim_meta_path, save_dir)
-        x['cluster_id'] = np.array(tokens)[:,1]
-        x['original_cluster_id'] = np.array(tokens)[:,0]
-        x.iloc[:, 0:16].to_csv(save_dir + '\\metrics.csv', sep=',', index=False)
-        x.to_csv(save_dir + '\\cluster_predictions.tsv', columns=['cluster_id','predictions'], index=False, sep='\t')
-        x.to_csv(save_dir + '\\cluster_original_cluster_id.tsv', columns=['cluster_id','original_cluster_id'], index=False, sep='\t')
-        x.to_csv(save_dir + '\\cluster_qc_threshold_check.tsv', columns=['cluster_id', 'qc_threshold_check'], index=False, sep='\t')
-        x = extract(x, **{'predictions': [1]})
-        x['group'] = 'good'
-        x.to_csv(save_dir + '\\cluster_group.tsv', columns=['cluster_id','group'], index=False, sep='\t')
-        shutil.copyfile(ksdir+'\\params.py', save_dir+'\\params.py')
-        if os.path.isfile(ksdir+'\\events.csv'):
-            shutil.copyfile(ksdir+'\\events.csv', save_dir+'\\events.csv')
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir, exist_ok=True)
+            x = extract(metrics, **{'uid': [uid]})
+            x.to_csv(ksdir + '\\cluster_predictions.tsv', columns=['cluster_id','predictions'], index=False, sep='\t')
+            x = extract(x, **{'predictions': [1,0]})
+            tokens = trim_NPYs(x['cluster_id'], ksdir, trim_meta_path, save_dir)
+            x['cluster_id'] = np.array(tokens)[:,1]
+            x['original_cluster_id'] = np.array(tokens)[:,0]
+            x.iloc[:, 0:16].to_csv(save_dir + '\\metrics.csv', sep=',', index=False)
+            x.to_csv(save_dir + '\\cluster_predictions.tsv', columns=['cluster_id','predictions'], index=False, sep='\t')
+            x.to_csv(save_dir + '\\cluster_original_cluster_id.tsv', columns=['cluster_id','original_cluster_id'], index=False, sep='\t')
+            x.to_csv(save_dir + '\\cluster_qc_threshold_check.tsv', columns=['cluster_id', 'qc_threshold_check'], index=False, sep='\t')
+            x = extract(x, **{'predictions': [1]})
+            x['group'] = 'good'
+            x.to_csv(save_dir + '\\cluster_group.tsv', columns=['cluster_id','group'], index=False, sep='\t')
+            shutil.copyfile(ksdir+'\\params.py', save_dir+'\\params.py')
+            if os.path.isfile(ksdir+'\\events.csv'):
+                shutil.copyfile(ksdir+'\\events.csv', save_dir+'\\events.csv')
+        else:
+            print("Trimmed folder exists. Skipping file...")
     return metrics
