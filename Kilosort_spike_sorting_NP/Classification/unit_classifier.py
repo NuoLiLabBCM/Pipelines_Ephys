@@ -133,7 +133,7 @@ def run(ksdirs_csv, trim_meta_path, model1_coef, model1_intercept, model2_coef,
         print("\n\nTrimming File: uid {}\n" .format(uid))
         save_dir = ksdir + '_trimmed'
         if not os.path.exists(save_dir):
-            os.makedirs(save_dir, exist_ok=True)
+            os.makedirs(save_dir, exist_ok=False)
             x = extract(metrics, **{'uid': [uid]})
             x.to_csv(ksdir + '\\cluster_predictions.tsv', columns=['cluster_id','predictions'], index=False, sep='\t')
             x = extract(x, **{'predictions': [1,0]})
