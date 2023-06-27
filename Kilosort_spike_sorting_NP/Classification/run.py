@@ -25,5 +25,5 @@ model2_coef = params[region]['model2_coef']
 model2_intercept = params[region]['model2_intercept']
 
 result = run(ksdirs_csv, trim_meta_path, model1_coef, model1_intercept, 
-              model2_coef, model2_intercept, feat_cols, greater_equal, less_equal, 
-              energy_threshold)
+             model2_coef, model2_intercept, feat_cols, greater_equal, less_equal, 
+             energy_threshold)
