@@ -1,3 +1,6 @@
+# NOTE
+If using a newer version of SpikeGLX for acquisition, use the scripts under "ecephys_spike_sorting-master_v2024_01.rar" and setups under "setups_v2024_01". The installation steps are the same as mentioned under [Installation](#installation). 
+
 # Ecephys pipeline
 Originally forked from [https://github.com/jenniferColonell/ecephys_spike_sorting](https://github.com/jenniferColonell/ecephys_spike_sorting). Added some functionality to use with Li Lab's data preprocessing pipeline.  
 
