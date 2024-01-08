@@ -6,7 +6,7 @@ Originally forked from [https://github.com/jenniferColonell/ecephys_spike_sortin
 
 ## Installation
 
-For installation, refer to **Spike sorting.pdf** under installation_guide.
+For installation, refer to **Spike sorting.pdf** under [installation_guide](https://github.com/NuoLiLabBCM/Pipelines_Ephys/tree/main/Kilosort_spike_sorting_NP/PreProcessing/installation_guide)
 
 ## Usage
 Need to edit 3 scripts before running. 
